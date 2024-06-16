@@ -1,4 +1,4 @@
-﻿namespace Amazon.CLI
+﻿namespace eCommerce.CLI
 {
     internal class Program
     {

@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Amazon.Library.Models
+namespace eCommerce.Library.Models
 {
     public class Product
     {

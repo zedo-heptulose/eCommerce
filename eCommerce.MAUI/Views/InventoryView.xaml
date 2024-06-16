@@ -4,6 +4,35 @@
              x:Class="eCommerce.MAUI.Views.InventoryView"
              Title="InventoryView">
     <VerticalStackLayout>
+        <ListView
+            ItemsSource="{Binding Products}"
+            SelectedItem="{Binding SelectedProduct}"
+            >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column ="0" Text="{Binding Id}"/>
+                            <Label Grid.Column="1" Text ="{Binding Name}"/>
+                            <Label Grid.Column="2" Text="{Binding Price}"/>
+                            <Label Grid.Column="3" Text="{Binding Quantity}"/>
+                            <Label Grid.Column="4" Text="{Binding Description}"/>
+                            <Button Grid.Column="5" Text="Edit" Clicked="EditClicked"/>
+                            <Button Grid.Column="6" Text="Delete" Clicked="DeleteClicked"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
         <Button
             Text="Cancel"
             Clicked="CancelClicked"

@@ -9,9 +9,14 @@ public partial class InventoryView : ContentPage
 		BindingContext = new InventoryViewModel();
 	}
 
+	private void AddClicked(object sender, EventArgs e)
+	{
+        Shell.Current.GoToAsync("//Product");
+    }
+
 	private void EditClicked(object sender, EventArgs e)
 	{
-		(BindingContext as InventoryViewModel).UpdateContact();
+
 	}
 
 	private void DeleteClicked(object sender, EventArgs e)

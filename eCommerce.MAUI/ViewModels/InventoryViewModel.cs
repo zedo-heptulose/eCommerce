@@ -10,21 +10,25 @@ namespace eCommerce.MAUI.ViewModels
 {
     public class InventoryViewModel
     {
-        public List<Product> Products
+        public List<ProductViewModel> Products
         {
             get
             {
-                return InventoryServiceProxy.Current?.Products?.ToList() ?? new List<Product>();
+                return InventoryServiceProxy.Current?.Products?.ToList().Select(c => new ProductViewModel(c)).ToList()
+                    ?? new List<ProductViewModel>();
             }
         }
 
-        public Product SelectedProduct { get; set; }
+        public ProductViewModel SelectedProduct { get; set; }
 
-        public void UpdateContact()
+        public void UpdateProduct()
         {
-            InventoryServiceProxy.Current.AddOrUpdate(SelectedProduct);
+            InventoryServiceProxy.Current.AddOrUpdate(SelectedProduct.Product);
         }
-
-        public InventoryViewModel() { }
+        
+        public InventoryViewModel() 
+        { 
+        
+        }
     }
 }

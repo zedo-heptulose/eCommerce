@@ -57,6 +57,7 @@ namespace eCommerce.Library.Services
         {
             products = new List<Product>();
             Product prod1 = new Product { Id = 1, Name = "Jeff"};
+            products.Add(prod1);
            
         }
 

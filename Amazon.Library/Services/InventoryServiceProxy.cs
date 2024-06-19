@@ -15,6 +15,7 @@ namespace eCommerce.Library.Services
 
         private List<Product> products;
 
+        //read
         public ReadOnlyCollection<Product> Products
         {
             get
@@ -36,6 +37,7 @@ namespace eCommerce.Library.Services
             }
         }
 
+        //create, update
         //sucessfully reached
         public Product AddOrUpdate(Product p)
         {
@@ -56,6 +58,26 @@ namespace eCommerce.Library.Services
             }
 
             return p;
+        }
+
+        public Product? Delete(Product p)
+        {
+            if (p == null) { return null; }
+            Product to_remove;
+            try
+            {
+                to_remove = products.Single(c => c.Id == p.Id);
+            }
+            catch (InvalidOperationException e)
+            {
+                return null;
+            }
+            
+            if (to_remove != null)
+            {
+                products.Remove(to_remove);
+            }
+            return to_remove;
         }
 
         private InventoryServiceProxy()

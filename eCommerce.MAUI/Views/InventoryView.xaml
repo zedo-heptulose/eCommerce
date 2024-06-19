@@ -33,6 +33,12 @@
                                     Command="{Binding Path=EditCommand}"
                                     CommandParameter="{Binding}"
                                     />
+                            <Button Grid.Column="6"
+                                    Text="Delete"
+                                    Command="{Binding Path=DeleteCommand}"
+                                    CommandParameter="{Binding}"
+                                    Clicked="InlineDelete_Clicked"
+                                    />
                         </Grid>
                     </ViewCell>
                 </DataTemplate>

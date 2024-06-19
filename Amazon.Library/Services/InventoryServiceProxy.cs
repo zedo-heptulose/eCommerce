@@ -23,7 +23,7 @@ namespace eCommerce.Library.Services
             }
         }
 
-        private int NextId
+        private int? NextId
         {
             get
             {

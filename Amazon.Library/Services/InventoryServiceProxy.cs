@@ -36,6 +36,7 @@ namespace eCommerce.Library.Services
             }
         }
 
+        //sucessfully reached
         public Product AddOrUpdate(Product p)
         {
             bool isAdd = false;
@@ -49,6 +50,10 @@ namespace eCommerce.Library.Services
             {
                 products.Add(p);
             }
+            else
+            {
+                ///TODO: Implement replacing the item at this point in the list.
+            }
 
             return p;
         }
@@ -56,8 +61,6 @@ namespace eCommerce.Library.Services
         private InventoryServiceProxy()
         {
             products = new List<Product>();
-            Product prod1 = new Product { Id = 1, Name = "Jeff"};
-            products.Add(prod1);
            
         }
 

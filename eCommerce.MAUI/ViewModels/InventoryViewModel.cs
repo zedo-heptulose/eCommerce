@@ -32,7 +32,6 @@ namespace eCommerce.MAUI.ViewModels
 
         public List<ProductViewModel> Products 
         {
-
             get
             {
                 return InventoryServiceProxy.Current?.Products?.ToList().Select(c => new ProductViewModel(c)).ToList()

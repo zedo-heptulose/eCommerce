@@ -93,7 +93,7 @@ namespace eCommerce.MAUI.ViewModels
         public ProductViewModel()
         {
             Product = new Product();
-            Product.Name = "Jerald Fourd";             
+            Product.Id = 0;
             SetupCommands();
         }
 

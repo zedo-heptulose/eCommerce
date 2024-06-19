@@ -13,15 +13,15 @@
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
     <ShellContent
-        Title="Home"
+        Title="Inventory"
         ContentTemplate="{DataTemplate views:InventoryView}"
         Route="Inventory" />
     <ShellContent
-        Title="Home"
+        Title="Shop"
         ContentTemplate="{DataTemplate views:ShopView}"
         Route="Shop" />
     <ShellContent
-        Title="Home"
+        Title="Product"
         ContentTemplate="{DataTemplate views:ProductView}"
         Route="Product"/>
 </Shell>

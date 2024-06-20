@@ -13,17 +13,25 @@ namespace eCommerce.MAUI.ViewModels
         //At the very least, the inventoryserviceproxy and 
         //the shopping cart service as members
 
-        public InventoryServiceProxy InventoryServiceProxy { get; set; }
-        public ShoppingCartService ShoppingCartService { get; set; }
-        
-        public ShopViewModel() 
+        public List<ProductViewModel> InventoryItems
         {
-            InventoryServiceProxy = InventoryServiceProxy.Current;
-
-            ShoppingCartService = ShoppingCartService.Current;
-
+            get
+            {
+                return InventoryServiceProxy.Current?.Products?.ToList().Select(c => new ProductViewModel(c)).ToList()
+                    ?? new List<ProductViewModel>();
+            }
         }
 
+
+        public List<ProductViewModel> CartItems
+        {
+            get
+            {
+                return ShoppingCartService.Current?.Cart?.Contents?.Select(p => new ProductViewModel(p)).ToList()
+                    ?? new List<ProductViewModel>();
+            }
+        }
+       
         
     }
 }

@@ -19,9 +19,11 @@
             The list off all the products, then another list with the products
             only in the shopping cart.
             For now, let's see that this works.>-->
+            
+            <!-- SHOPPING CART LISTVIEW -->
             <ListView 
                 Grid.Row ="1" Grid.Column="0"
-                ItemsSource="{Binding InventoryServiceProxy.Products}"
+                ItemsSource="{Binding InventoryItems}"
                 >
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -43,6 +45,18 @@
                 </ListView.ItemTemplate>                    
                     
             </ListView>
+            
+            <!-- SHOPPING CART LISTVIEW -->
+            <ListView
+                Grid.Row="1" Grid.Column="1"
+                ItemsSource="{Binding CartItems}"
+                >
+                <ListView.ItemTemplate>
+                    <DataTemplate></DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+
         </Grid>
         <Button
             Text="Cancel"

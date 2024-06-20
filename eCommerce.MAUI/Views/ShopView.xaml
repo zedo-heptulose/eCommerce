@@ -19,9 +19,29 @@
             The list off all the products, then another list with the products
             only in the shopping cart.
             For now, let's see that this works.>-->
-            <ListView Grid.Row ="1" Grid.Column="0"
-                      ItemsSource="{Binding}">
-                
+            <ListView 
+                Grid.Row ="1" Grid.Column="0"
+                ItemsSource="{Binding InventoryServiceProxy.Products}"
+                >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Text="{Binding Name}"/>
+                                <Label Grid.Column="1" Text="{Binding Price}"/>
+                                <Label Grid.Column="2" Text="{Binding Quantity}"/>
+                                <Label Grid.Column="3" Text="{Binding Description}"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>                    
+                    
             </ListView>
         </Grid>
         <Button

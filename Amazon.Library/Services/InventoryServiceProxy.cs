@@ -33,7 +33,7 @@ namespace eCommerce.Library.Services
                     return 1;
                 }
 
-                return products.Select(p => p.Id).Max() + 1;
+                return (products.Select(p => p.Id).Max() ?? 0) + 1;
             }
         }
 
@@ -48,7 +48,7 @@ namespace eCommerce.Library.Services
                 p.Id = NextId;
             }
 
-            if(isAdd)
+            if(isAdd == true)
             {
                 products.Add(p);
             }

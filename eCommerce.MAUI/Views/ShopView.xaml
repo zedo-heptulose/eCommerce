@@ -4,6 +4,26 @@
              x:Class="eCommerce.MAUI.Views.ShopView"
              Title="ShopView">
     <VerticalStackLayout>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <!--< how to do this? Would consider that the bindingcontext is ShopViewModel.
+            Might want an inventoryviewmodel as a prereq? Or... Could have just,
+            The list off all the products, then another list with the products
+            only in the shopping cart.
+            For now, let's see that this works.>-->
+            <ListView Grid.Row ="1" Grid.Column="0"
+                      ItemsSource="{Binding}">
+                
+            </ListView>
+        </Grid>
         <Button
             Text="Cancel"
             Clicked="CancelClicked"

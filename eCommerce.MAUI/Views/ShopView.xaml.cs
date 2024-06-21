@@ -19,11 +19,13 @@ public partial class ShopView : ContentPage
     {
         (BindingContext as ShopViewModel).RefreshInventory();
         (BindingContext as ShopViewModel).RefreshCart();
+        (BindingContext as ShopViewModel).RefreshPrices();
     }
 
     private void AddToCartClicked(object sender, EventArgs e)
     {
         (BindingContext as ShopViewModel).RefreshInventory();
         (BindingContext as ShopViewModel).RefreshCart();
+        (BindingContext as ShopViewModel).RefreshPrices();
     }
 }

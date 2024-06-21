@@ -34,6 +34,13 @@ namespace eCommerce.MAUI.ViewModels
             NotifyPropertyChanged("CartItems");
         }
 
+        public void RefreshPrices()
+        {
+            NotifyPropertyChanged("PriceBeforeTax");
+            NotifyPropertyChanged("Tax");
+            NotifyPropertyChanged("PriceAfterTax");
+        }
+
         public List<ProductViewModel> InventoryItems
         {
             get
@@ -55,6 +62,31 @@ namespace eCommerce.MAUI.ViewModels
         }
 
         public int QuantityToAdd { get; set; }
+
+        public decimal PriceBeforeTax
+        {
+            get
+            {
+                return ShoppingCartService.Current?.Cart?.Contents.Select(p => p.Price * p.Quantity).Sum() ?? 0;
+            }
+        }
+
+        public decimal Tax
+        {
+            get
+            {
+                return PriceBeforeTax * 0.07M;
+
+            }
+        }
+
+        public decimal PriceAfterTax
+        {
+            get
+            {
+                return PriceBeforeTax + Tax;
+            }
+        }
 
         public ICommand AddToCartCommand { get; set; }
 

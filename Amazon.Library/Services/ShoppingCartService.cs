@@ -55,7 +55,7 @@ namespace eCommerce.Library.Services
         //    //TODO: Someone do this.
         //}
 
-        public void AddToCart(Product newProduct)
+        public void AddToCart(Product newProduct) //probably want to change this to work by ID
         {
             if (Cart == null)
             {
@@ -65,30 +65,39 @@ namespace eCommerce.Library.Services
             {
                 return ;
             }
-            var existingProduct = Cart?.Contents?
+
+            //just looking at the code, the issue seems to be that the products in the inventory and cart
+            //are being obtained by value and not by reference.
+            Product existingProduct = Cart?.Contents?
                 .FirstOrDefault(existingProducts => existingProducts.Id == newProduct.Id);
 
-            var inventoryProduct = InventoryServiceProxy.Current.Products.FirstOrDefault(invProd => invProd.Id == newProduct.Id);
+            Product inventoryProduct = InventoryServiceProxy.Current.Products.FirstOrDefault(invProd => invProd.Id == newProduct.Id);
             if(inventoryProduct == null)
             {
                 return;
             }
-            int? temp_quantity = newProduct.Quantity;
+
+            Product productToAdd = new Product(newProduct);///here we make a copy so that product is added to shopping cart by value
+
+            int? temp_quantity = productToAdd.Quantity;
 
             inventoryProduct.Quantity -= temp_quantity;
+            //inventoryProduct and newProduct are the same thing; they are passed by reference
             
 
             if (existingProduct == null)
             {
-                //this works by reference...
-                //make constructor?
-
-                newProduct.Quantity += temp_quantity;
-                Cart?.Contents.Add(newProduct);
+                Cart?.Contents.Add(productToAdd);
             }
             else
             {
+                int? old_quant = existingProduct.Quantity;
                 existingProduct.Quantity += temp_quantity;
+
+                if (existingProduct.Quantity == old_quant)
+                {
+                    return;
+                }
             }
             
 

@@ -46,12 +46,15 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>                    
             </ListView>
+            
             <Button
+                Grid.Row="2" Grid.Column="0"
                 Text="Add To Cart"
                 Command="{Binding Path=AddToCartCommand}"
                 CommandParameter="{Binding}"
                 Clicked="AddToCartClicked"
                 />
+            
             <!-- SHOPPING CART LISTVIEW -->
             <ListView
                 Grid.Row="1" Grid.Column="1"
@@ -64,10 +67,13 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
-                                       
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Column="0" Text="{Binding Name}"/>
-                                <Label Grid.Column="1" Text="{Binding Quantiity}"/>
+                                <Label Grid.Column="1" Text="{Binding Price}"/>
+                                <Label Grid.Column="2" Text="{Binding Quantity}"/>
+                                <Label Grid.Column="3" Text="{Binding Description}"/>
                             </Grid>
                         </ViewCell>
                     </DataTemplate>

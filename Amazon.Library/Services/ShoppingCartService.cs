@@ -73,13 +73,14 @@ namespace eCommerce.Library.Services
             {
                 return;
             }
-            
-            inventoryProduct.Quantity -= newProduct.Quantity;
+            int? temp_quantity = newProduct.Quantity;
+
+            inventoryProduct.Quantity -= temp_quantity;
 
             if(existingProduct != null)
             {
                 // update
-                existingProduct.Quantity += newProduct.Quantity;
+                existingProduct.Quantity += temp_quantity;
             } else
             {
                 //add

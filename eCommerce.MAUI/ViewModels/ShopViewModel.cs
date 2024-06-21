@@ -1,4 +1,5 @@
 ﻿using eCommerce.Library.Services;
+using eCommerce.Library.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -33,6 +34,13 @@ namespace eCommerce.MAUI.ViewModels
             NotifyPropertyChanged("CartItems");
         }
 
+        public void RefreshPrices()
+        {
+            NotifyPropertyChanged("PriceBeforeTax");
+            NotifyPropertyChanged("Tax");
+            NotifyPropertyChanged("PriceAfterTax");
+        }
+
         public List<ProductViewModel> InventoryItems
         {
             get
@@ -52,14 +60,45 @@ namespace eCommerce.MAUI.ViewModels
                     ?? new List<ProductViewModel>();
             }
         }
-        
+
+        public int QuantityToAdd { get; set; }
+
+        public decimal PriceBeforeTax
+        {
+            get
+            {
+                return ShoppingCartService.Current?.Cart?.Contents.Select(p => p.Price * p.Quantity).Sum() ?? 0;
+            }
+        }
+
+        public decimal Tax
+        {
+            get
+            {
+                return PriceBeforeTax * 0.07M;
+
+            }
+        }
+
+        public decimal PriceAfterTax
+        {
+            get
+            {
+                return PriceBeforeTax + Tax;
+            }
+        }
+
         public ICommand AddToCartCommand { get; set; }
 
         public void ExecuteAddToCart(ShopViewModel p)
         {
             if (SelectedInventoryItem == null) { return;  }
             if (SelectedInventoryItem.Product == null) { return; }
-            ShoppingCartService.Current.AddToCart(SelectedInventoryItem?.Product);
+            ///NEW
+            Product? temp = new Product(SelectedInventoryItem.Product); //make copy here, so we can change its quantity
+            temp.Quantity = QuantityToAdd;
+            ///NEW
+            ShoppingCartService.Current.AddToCart(temp);
             RefreshCart();
             RefreshInventory();
         }

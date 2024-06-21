@@ -47,14 +47,29 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>                    
             </ListView>
+            <Grid Grid.Row="2" Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label
+                    Grid.Column="0"
+                    Text="Quantity"
+                    />
+                <Entry
+                    Grid.Column="1"
+                    Text="{Binding QuantityToAdd}"
+                    />
+                <Button
+                    Grid.Column="2"
+                    Text="Add To Cart"
+                    Command="{Binding Path=AddToCartCommand}"
+                    CommandParameter="{Binding}"
+                    Clicked="AddToCartClicked"
+                    />   
+            </Grid>
             
-            <Button
-                Grid.Row="2" Grid.Column="0"
-                Text="Add To Cart"
-                Command="{Binding Path=AddToCartCommand}"
-                CommandParameter="{Binding}"
-                Clicked="AddToCartClicked"
-                />
             
             <!-- SHOPPING CART LISTVIEW -->
             <ListView

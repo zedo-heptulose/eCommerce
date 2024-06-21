@@ -94,11 +94,7 @@ namespace eCommerce.MAUI.ViewModels
         public ICommand EditCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
 
-        private void ExecuteEdit(ProductViewModel? p) //could have this take user to 
-            //the product view page like before and just re-use AddOrUpdate, but will
-            //update because the id will be the same.
-            //would require some constructors for ProductViewModel that let me
-            //pass the current object in.
+        private void ExecuteEdit(ProductViewModel? p) 
         {   
             if (p == null) { return; }
             Shell.Current.GoToAsync($"//Product?ProductId={p.Id}");

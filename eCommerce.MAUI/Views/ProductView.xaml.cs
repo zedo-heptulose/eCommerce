@@ -4,7 +4,7 @@ using eCommerce.MAUI.ViewModels;
 [QueryProperty(nameof(ProductId), "ProductId")]
 public partial class ProductView : ContentPage
 {
-	int ProductId 
+	public int ProductId 
 	{
 		get; 
 		set; 

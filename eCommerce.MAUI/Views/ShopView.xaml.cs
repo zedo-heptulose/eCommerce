@@ -15,9 +15,14 @@ public partial class ShopView : ContentPage
         Shell.Current.GoToAsync("//MainPage");
     }
 
+    private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
+    {
+        (BindingContext as ShopViewModel).RefreshInventory();
+        (BindingContext as ShopViewModel).RefreshCart();
+    }
+
     private void AddToCartClicked(object sender, EventArgs e)
     {
-        (BindingContext as ShopViewModel).ExecuteAddToCart(BindingContext as ShopViewModel);
         (BindingContext as ShopViewModel).RefreshInventory();
         (BindingContext as ShopViewModel).RefreshCart();
     }

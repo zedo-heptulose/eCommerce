@@ -53,7 +53,7 @@ namespace eCommerce.MAUI.ViewModels
             }
         }
         
-        ICommand AddToCartCommand { get; set; }
+        public ICommand AddToCartCommand { get; set; }
 
         public void ExecuteAddToCart(ShopViewModel p)
         {

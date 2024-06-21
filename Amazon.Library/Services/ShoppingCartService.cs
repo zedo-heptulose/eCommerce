@@ -76,16 +76,22 @@ namespace eCommerce.Library.Services
             int? temp_quantity = newProduct.Quantity;
 
             inventoryProduct.Quantity -= temp_quantity;
+            
 
-            if(existingProduct != null)
+            if (existingProduct == null)
             {
-                // update
-                existingProduct.Quantity += temp_quantity;
-            } else
-            {
-                //add
-                Cart.Contents.Add(newProduct);
+                //this works by reference...
+                //make constructor?
+
+                newProduct.Quantity += temp_quantity;
+                Cart?.Contents.Add(newProduct);
             }
+            else
+            {
+                existingProduct.Quantity += temp_quantity;
+            }
+            
+
         }
 
     }

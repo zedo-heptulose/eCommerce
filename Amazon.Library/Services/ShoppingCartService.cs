@@ -19,15 +19,21 @@ namespace eCommerce.Library.Services
         {
             get
             {
-                if(carts == null || !carts.Any())
+                if (carts == null || !carts.Any())
                 {
                     return new ShoppingCart();
-                }
+                }       
                 return carts?.FirstOrDefault() ?? new ShoppingCart();
             }
         }
 
-        private ShoppingCartService() { }
+
+        private ShoppingCartService() 
+        { 
+            List<ShoppingCart> cart_list = new List<ShoppingCart>();
+            cart_list.Add(new ShoppingCart {Id = 1, Contents = new List<Product>() });
+            carts = new ReadOnlyCollection<ShoppingCart>(cart_list);
+        }
 
         public static ShoppingCartService Current
         {
@@ -51,11 +57,14 @@ namespace eCommerce.Library.Services
 
         public void AddToCart(Product newProduct)
         {
-            if(Cart == null || Cart.Contents == null)
+            if (Cart == null)
             {
                 return;
             }
-
+            if (Cart.Contents == null)
+            {
+                return ;
+            }
             var existingProduct = Cart?.Contents?
                 .FirstOrDefault(existingProducts => existingProducts.Id == newProduct.Id);
 

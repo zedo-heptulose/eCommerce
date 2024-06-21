@@ -76,8 +76,22 @@ namespace eCommerce.MAUI.ViewModels
             }
         }
 
-        public ICommand EditCommand { get; set; }
+        public int? Id
+        {
+            get
+            {
+                return Product?.Id ?? 0;
+            }
+            set
+            {
+                if (Product != null)
+                {
+                    Product.Id = value;
+                }
+            }
+        }
 
+        public ICommand EditCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
 
         private void ExecuteEdit(ProductViewModel? p) //could have this take user to 
@@ -87,35 +101,25 @@ namespace eCommerce.MAUI.ViewModels
             //pass the current object in.
         {   
             if (p == null) { return; }
-            //Shell.Current.GoToAsync($"//")
+            Shell.Current.GoToAsync($"//Product?ProductId={p.Id}");
         }
 
-        private void ExecuteDelete()
+        private void ExecuteDelete(ProductViewModel? p)
         {
-            InventoryServiceProxy.Current.Delete(Product);
+            if (p== null) { return; }
+            InventoryServiceProxy.Current.Delete(p.Product);
             //need to refresh, somehow.
             //use the InventoryView codebehind.
         }
         
         public void SetupCommands()
         {
-            DeleteCommand = new Command(ExecuteDelete);
+            DeleteCommand = new Command(
+                (p) => ExecuteDelete(p as ProductViewModel));
             EditCommand = new Command(
                 (p) => ExecuteEdit(p as ProductViewModel));
         }
 
-        public ProductViewModel()
-        {
-            Product = new Product();
-            Product.Id = 0;
-            SetupCommands();
-        }
-
-        public ProductViewModel(Product _product)
-        {
-            Product = _product;
-            SetupCommands();
-        }
 
         public void AddToInventory()
         {
@@ -124,6 +128,23 @@ namespace eCommerce.MAUI.ViewModels
         //so, you would do this to prevent circular dependencies.
         //still getting a contact from service proxy in InventoryViewModel,
         //but can use this conversion constructor.
+        public ProductViewModel()
+        {
+            Product = new Product();
+            Product.Id = 0;
+            SetupCommands();
+        }
+        public ProductViewModel(Product _product)
+        {
+            Product = _product;
+            SetupCommands();
+        }
+
+        public ProductViewModel(int id)
+        {
+            Product = new Product { Id = id };
+            SetupCommands();
+        }
 
         public string? Display
         {

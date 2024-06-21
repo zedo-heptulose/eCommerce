@@ -3,7 +3,79 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="eCommerce.MAUI.Views.ShopView"
              Title="ShopView">
+    
     <VerticalStackLayout>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <!--< how to do this? Would consider that the bindingcontext is ShopViewModel.
+            Might want an inventoryviewmodel as a prereq? Or... Could have just,
+            The list off all the products, then another list with the products
+            only in the shopping cart.
+            For now, let's see that this works.>-->
+            
+            <!-- SHOPPING CART LISTVIEW -->
+            <ListView 
+                Grid.Row ="1" Grid.Column="0"
+                ItemsSource="{Binding InventoryItems}"
+                SelectedItem="{Binding SelectedInventoryItem}"
+                >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Text="{Binding Name}"/>
+                                <Label Grid.Column="1" Text="{Binding Price}"/>
+                                <Label Grid.Column="2" Text="{Binding Quantity}"/>
+                                <Label Grid.Column="3" Text="{Binding Description}"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>                    
+            </ListView>
+            <Button
+                Text="Add To Cart"
+                Command="{Binding Path=AddToCartCommand}"
+                CommandParameter="{Binding}"
+                Clicked="AddToCartClicked"
+                />
+            <!-- SHOPPING CART LISTVIEW -->
+            <ListView
+                Grid.Row="1" Grid.Column="1"
+                ItemsSource="{Binding CartItems}"
+                >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                       
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Text="{Binding Name}"/>
+                                <Label Grid.Column="1" Text="{Binding Quantiity}"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+
+        </Grid>
         <Button
             Text="Cancel"
             Clicked="CancelClicked"

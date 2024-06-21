@@ -1,4 +1,5 @@
 ﻿using eCommerce.Library.Services;
+using eCommerce.Library.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -52,14 +53,20 @@ namespace eCommerce.MAUI.ViewModels
                     ?? new List<ProductViewModel>();
             }
         }
-        
+
+        public int QuantityToAdd { get; set; }
+
         public ICommand AddToCartCommand { get; set; }
 
         public void ExecuteAddToCart(ShopViewModel p)
         {
             if (SelectedInventoryItem == null) { return;  }
             if (SelectedInventoryItem.Product == null) { return; }
-            ShoppingCartService.Current.AddToCart(SelectedInventoryItem?.Product);
+            ///NEW
+            Product? temp = new Product(SelectedInventoryItem.Product); //make copy here, so we can change its quantity
+            temp.Quantity = QuantityToAdd;
+            ///NEW
+            ShoppingCartService.Current.AddToCart(temp);
             RefreshCart();
             RefreshInventory();
         }

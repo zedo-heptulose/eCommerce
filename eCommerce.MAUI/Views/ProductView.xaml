@@ -25,11 +25,13 @@
             <Label Grid.Row="0" Grid.Column="1" Text="Description"/>
             <Label Grid.Row="0" Grid.Column="2" Text="Price"/>
             <Label Grid.Row="0" Grid.Column="3" Text="Quantity"/>
+            <Label Grid.Row="0" Grid.Column="4" Text="Id"/>
 
             <Entry Grid.Row="1" Grid.Column="0" Text="{Binding Name}"/>
             <Entry Grid.Row="1" Grid.Column="1" Text="{Binding Description}"/>
             <Entry Grid.Row="1" Grid.Column="2" Text="{Binding Price}"/>
             <Entry Grid.Row="1" Grid.Column="3" Text="{Binding Quantity}"/>
+            <Label Grid.Row="1" Grid.Column="4" Text="{Binding Id}"/>
         </Grid>
         <Button Text="Ok" Clicked="OkClicked"/>
         <Button Text="Cancel" Clicked="CancelClicked"/>

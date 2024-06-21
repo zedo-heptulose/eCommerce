@@ -33,34 +33,40 @@ namespace eCommerce.Library.Services
                     return 1;
                 }
 
-                return products.Select(p => p.Id).Max() + 1;
+                return (products.Select(p => p.Id).Max() ?? 0) + 1;
             }
         }
 
         //create, update
         //sucessfully reached
-        public Product AddOrUpdate(Product p)
+        public Product AddOrUpdate(Product? p)
         {
+            if(products == null) { return new Product(p); }
+            if(p == null) { return new Product(); }
+
             bool isAdd = false;
+
             if(p.Id == 0)
             {
                 isAdd = true;
                 p.Id = NextId;
             }
 
-            if(isAdd)
+            if(isAdd == true)
             {
                 products.Add(p);
             }
             else
             {
-                ///TODO: Implement replacing the item at this point in the list.
+                //TODO: Implement replacing the item at this point in the list.
+                Delete(products?.FirstOrDefault(c => c.Id == p.Id));
+                products?.Add(p);
             }
 
             return p;
         }
 
-        public Product? Delete(Product p)
+        public Product? Delete(Product? p)
         {
             if (p == null) { return null; }
             Product to_remove;

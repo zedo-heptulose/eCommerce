@@ -1,17 +1,37 @@
 ﻿using eCommerce.Library.Services;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace eCommerce.MAUI.ViewModels
 {
-    public class ShopViewModel
+    public class ShopViewModel : INotifyPropertyChanged
     {
         //need, to implement:
         //At the very least, the inventoryserviceproxy and 
         //the shopping cart service as members
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void RefreshInventory()
+        {
+            NotifyPropertyChanged("InventoryItems");
+        }
+
+        public void RefreshCart()
+        {
+            NotifyPropertyChanged("CartItems");
+        }
 
         public List<ProductViewModel> InventoryItems
         {
@@ -22,6 +42,7 @@ namespace eCommerce.MAUI.ViewModels
             }
         }
 
+        public ProductViewModel? SelectedInventoryItem { get; set; }
 
         public List<ProductViewModel> CartItems
         {
@@ -31,7 +52,28 @@ namespace eCommerce.MAUI.ViewModels
                     ?? new List<ProductViewModel>();
             }
         }
-       
+        
+        ICommand AddToCartCommand { get; set; }
+
+        public void ExecuteAddToCart(ShopViewModel p)
+        {
+            if (SelectedInventoryItem == null) { return;  }
+            if (SelectedInventoryItem.Product == null) { return; }
+            ShoppingCartService.Current.AddToCart(SelectedInventoryItem?.Product);
+            RefreshCart();
+            RefreshInventory();
+        }
+
+        public void SetupCommands()
+        {
+            AddToCartCommand = new Command(
+                (p) => ExecuteAddToCart(p as ShopViewModel));
+        }
+
+        public ShopViewModel()
+        {
+            SetupCommands();
+        }
         
     }
 }

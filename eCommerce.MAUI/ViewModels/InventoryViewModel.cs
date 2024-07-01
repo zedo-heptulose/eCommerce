@@ -34,12 +34,22 @@ namespace eCommerce.MAUI.ViewModels
         {
             get
             {
-                return InventoryServiceProxy.Current?.Products?.ToList().Select(c => new ProductViewModel(c)).ToList()
-                    ?? new List<ProductViewModel>();
+                if (SearchString == null)
+                {
+                    return InventoryServiceProxy.Current?.Products?.ToList().Select(c => new ProductViewModel(c)).ToList()
+                        ?? new List<ProductViewModel>();
+                }
+                else
+                {
+                    return InventoryServiceProxy.Current.Products?.ToList().Where(c => c?.Name.ToUpper()?.Contains(SearchString.ToUpper()) ?? false).Select(c => new ProductViewModel(c)).ToList()
+                        ?? new List<ProductViewModel>();
+                }
             }
         }
 
         public ProductViewModel SelectedProduct { get; set; }
+
+        public string? SearchString {  get; set; }
 
         public InventoryViewModel() 
         { 

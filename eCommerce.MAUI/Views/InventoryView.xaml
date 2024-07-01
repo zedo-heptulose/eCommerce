@@ -6,6 +6,23 @@
              NavigatedTo="ContentPage_NavigatedTo">
     
     <VerticalStackLayout>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Entry
+                Grid.Column="0"
+                Text="{Binding SearchString}"            
+                />
+            <Button
+                Grid.Column="1"
+                Text="Search"
+                Clicked="SearchClicked"
+                />
+        </Grid>
+
         <ListView
             ItemsSource="{Binding Products}"
             SelectedItem="{Binding SelectedProduct}"

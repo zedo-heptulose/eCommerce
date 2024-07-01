@@ -41,12 +41,22 @@ namespace eCommerce.MAUI.ViewModels
             NotifyPropertyChanged("PriceAfterTax");
         }
 
+        public string InventorySearchString {  get; set; }
+
         public List<ProductViewModel> InventoryItems
         {
             get
             {
-                return InventoryServiceProxy.Current?.Products?.ToList().Select(c => new ProductViewModel(c)).ToList()
-                    ?? new List<ProductViewModel>();
+                if (InventorySearchString == null)
+                {
+                    return InventoryServiceProxy.Current?.Products?.ToList().Select(c => new ProductViewModel(c)).ToList()
+                        ?? new List<ProductViewModel>();
+                }
+                else
+                {
+                    return InventoryServiceProxy.Current?.Products?.ToList().Where(c => c.Name.ToUpper().Contains(InventorySearchString.ToUpper())).Select(c => new ProductViewModel(c)).ToList()
+                        ?? new List<ProductViewModel>();
+                }
             }
         }
 
@@ -60,6 +70,8 @@ namespace eCommerce.MAUI.ViewModels
                     ?? new List<ProductViewModel>();
             }
         }
+
+        public ProductViewModel SelectedCartItem { get; set; }
 
         public int QuantityToAdd { get; set; }
 
@@ -99,14 +111,29 @@ namespace eCommerce.MAUI.ViewModels
             temp.Quantity = QuantityToAdd;
             ///NEW
             ShoppingCartService.Current.AddToCart(temp);
-            RefreshCart();
-            RefreshInventory();
+        }
+
+        public ICommand RemoveFromCartCommand { get; set; }
+
+        public void ExecuteRemoveFromCart(ShopViewModel p)
+        {
+            if (SelectedCartItem == null) { return;  }
+            if (SelectedCartItem.Product == null) { return; }
+
+            Product? temp = new Product(SelectedCartItem.Product);
+            temp.Quantity += InventoryServiceProxy.Current?.Products?.FirstOrDefault(c => c?.Id == temp?.Id).Quantity ?? 0;
+
+            ShoppingCartService.Current.RemoveFromCart(SelectedCartItem.Product);
+            InventoryServiceProxy.Current.AddOrUpdate(temp);
+
         }
 
         public void SetupCommands()
         {
             AddToCartCommand = new Command(
                 (p) => ExecuteAddToCart(p as ShopViewModel));
+            RemoveFromCartCommand = new Command(
+                (p) => ExecuteRemoveFromCart(p as ShopViewModel));
         }
 
         public ShopViewModel()

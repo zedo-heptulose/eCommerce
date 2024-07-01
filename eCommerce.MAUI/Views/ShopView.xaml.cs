@@ -15,6 +15,17 @@ public partial class ShopView : ContentPage
         Shell.Current.GoToAsync("//MainPage");
     }
 
+    private void SearchClicked(object sender, EventArgs e)
+    {
+        (BindingContext as ShopViewModel).RefreshInventory();
+    }
+
+    private void RemoveItemClicked(object sender, EventArgs e)
+    {
+        (BindingContext as ShopViewModel).RefreshInventory();
+        (BindingContext as ShopViewModel).RefreshCart();
+        (BindingContext as ShopViewModel).RefreshPrices();
+    }
     private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
     {
         (BindingContext as ShopViewModel).RefreshInventory();

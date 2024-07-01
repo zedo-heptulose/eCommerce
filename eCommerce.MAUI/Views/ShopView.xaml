@@ -22,7 +22,22 @@
             only in the shopping cart.
             For now, let's see that this works.>-->
             
-            <!-- SHOPPING CART LISTVIEW -->
+            <!--INVENTORY LISTVIEW -->
+            <Grid   Grid.Row="0" Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Entry
+                    Grid.Column="0"
+                    Text="{Binding InventorySearchString}"
+                    />
+                <Button
+                    Grid.Column="1"
+                    Text="Search"
+                    Clicked="SearchClicked"
+                    />
+            </Grid>
             <ListView 
                 Grid.Row ="1" Grid.Column="0"
                 ItemsSource="{Binding InventoryItems}"
@@ -71,10 +86,26 @@
             </Grid>
             
             
-            <!-- SHOPPING CART LISTVIEW -->
+            
+            <!-- SHOPPING CART -->
+            <Grid Grid.Row="0" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button
+                    Grid.Column="2"
+                    Text="Remove Item"
+                    Clicked="RemoveItemClicked"
+                    Command="{Binding Path=RemoveFromCartCommand}"
+                    CommandParameter="{Binding}"
+                    />
+            </Grid>
             <ListView
                 Grid.Row="1" Grid.Column="1"
                 ItemsSource="{Binding CartItems}"
+                SelectedItem="{Binding SelectedCartItem}"
                 >
                 <ListView.ItemTemplate>
                     <DataTemplate>

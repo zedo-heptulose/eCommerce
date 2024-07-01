@@ -99,7 +99,26 @@ namespace eCommerce.Library.Services
                     return;
                 }
             }
-            
+        }
+
+        public Product? RemoveFromCart(Product p)
+        {
+            if (p == null) { return null; }
+            Product to_remove;
+            try
+            {
+                to_remove = Cart.Contents.Single(c => c.Id == p.Id);
+            }
+            catch (InvalidOperationException e)
+            {
+                return null;
+            }
+
+            if (to_remove != null)
+            {
+                Cart.Contents.Remove(to_remove);
+            }
+            return to_remove;
 
         }
 

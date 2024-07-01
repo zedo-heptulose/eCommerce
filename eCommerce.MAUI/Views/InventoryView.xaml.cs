@@ -21,6 +21,11 @@ public partial class InventoryView : ContentPage
 		Shell.Current.GoToAsync("//MainPage");
     }
 
+	private void SearchClicked(object sender, EventArgs e)
+	{
+		(BindingContext as InventoryViewModel).RefreshProducts();
+	}
+
 	//this is activated when navigated to, can remove breakpoint
 	private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
 	{

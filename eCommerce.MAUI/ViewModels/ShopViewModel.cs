@@ -87,7 +87,8 @@ namespace eCommerce.MAUI.ViewModels
         {
             get
             {
-                return PriceBeforeTax * 0.07M;
+                decimal tax = GlobalVariableService.Current.GlobalVar.TaxRatePercent;
+                return PriceBeforeTax * (tax/100);
 
             }
         }

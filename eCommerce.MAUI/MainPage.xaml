@@ -10,6 +10,9 @@
             <Button 
                 Text="Manage Inventory" 
                 Clicked="ManageInventoryClicked"/>
+            <Button
+                Text="Manage Global Variables"
+                Clicked="ManageGlobalClicked"/>
             <Button 
                 Text="Shop"
                 Clicked="ShopClicked"/>

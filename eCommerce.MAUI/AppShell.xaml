@@ -24,4 +24,8 @@
         Title="Product"
         ContentTemplate="{DataTemplate views:ProductView}"
         Route="Product"/>
+    <ShellContent
+        Title="GlobalVars"
+        ContentTemplate="{DataTemplate views:GlobalManagerView}"
+        Route="GlobalVars"/>
 </Shell>

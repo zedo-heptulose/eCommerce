@@ -18,6 +18,11 @@
         {
             Shell.Current.GoToAsync("//Shop");
         }
+
+        private void ManageGlobalClicked(object sender, EventArgs e)
+        {
+            Shell.Current.GoToAsync("//GlobalVars");
+        }
     }
 
 }

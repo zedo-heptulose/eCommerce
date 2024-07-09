@@ -16,12 +16,18 @@ namespace eCommerce.Library.Models
         public int? Id { get; set; }
         public int? Quantity { get; set; }
 
+        public bool? BOGO { get; set; }
+
+        public decimal? MarkdownPercent { get; set; }
+
         public Product()
         {
             Name = string.Empty;
             Description = string.Empty;
             Price = 0;
             Id = 0;
+            BOGO = false;
+            MarkdownPercent = 0;
         }
         public Product(Product p)
         {
@@ -30,6 +36,8 @@ namespace eCommerce.Library.Models
             Price = p.Price;
             Id = p.Id;
             Quantity = p.Quantity;
+            BOGO = p.BOGO;
+            MarkdownPercent = p.MarkdownPercent;
         }
     }
 }

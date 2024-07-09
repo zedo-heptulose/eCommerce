@@ -15,6 +15,7 @@
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
             <!--< how to do this? Would consider that the bindingcontext is ShopViewModel.
             Might want an inventoryviewmodel as a prereq? Or... Could have just,
@@ -23,6 +24,8 @@
             For now, let's see that this works.>-->
             
             <!--INVENTORY LISTVIEW -->
+
+            <!--Search Bar -->
             <Grid   Grid.Row="0" Grid.Column="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -38,8 +41,27 @@
                     Clicked="SearchClicked"
                     />
             </Grid>
+
+            <!--Labels -->
+            <Grid Grid.Row="1" Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Text="Name"/>
+                <Label Grid.Column="1" Text="Price"/>
+                <Label Grid.Column="2" Text="Quantity"/>
+                <Label Grid.Column="3" Text="Description"/>
+                <Label Grid.Column="4" Text="BOGO?"/>
+                <Label Grid.Column="5" Text="Markdown (%)"/>
+            </Grid>
+            <!--item ListView -->
             <ListView 
-                Grid.Row ="1" Grid.Column="0"
+                Grid.Row ="2" Grid.Column="0"
                 ItemsSource="{Binding InventoryItems}"
                 SelectedItem="{Binding SelectedInventoryItem}"
                 >
@@ -52,17 +74,24 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Column="0" Text="{Binding Name}"/>
                                 <Label Grid.Column="1" Text="{Binding Price}"/>
                                 <Label Grid.Column="2" Text="{Binding Quantity}"/>
                                 <Label Grid.Column="3" Text="{Binding Description}"/>
+                                <Label Grid.Column="4" Text="{Binding BOGO}"/>
+                                <Label Grid.Column="5" Text="{Binding MarkdownPercent}"/>
                             </Grid>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>                    
             </ListView>
-            <Grid Grid.Row="2" Grid.Column="0">
+
+
+            <!--Choose quantity and add buttons -->
+            <Grid Grid.Row="3" Grid.Column="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
@@ -88,6 +117,7 @@
             
             
             <!-- SHOPPING CART -->
+            <!-- remove item option -->
             <Grid Grid.Row="0" Grid.Column="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -102,8 +132,27 @@
                     CommandParameter="{Binding}"
                     />
             </Grid>
+
+            <!-- labels -->
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Text="Name"/>
+                <Label Grid.Column="1" Text="Price"/>
+                <Label Grid.Column="2" Text="Quantity"/>
+                <Label Grid.Column="3" Text="Description"/>
+                <Label Grid.Column="4" Text="BOGO?"/>
+                <Label Grid.Column="5" Text="Markdown (%)"/>
+            </Grid>
+            <!-- cart items -->
             <ListView
-                Grid.Row="1" Grid.Column="1"
+                Grid.Row="2" Grid.Column="1"
                 ItemsSource="{Binding CartItems}"
                 SelectedItem="{Binding SelectedCartItem}"
                 >
@@ -116,17 +165,24 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Column="0" Text="{Binding Name}"/>
                                 <Label Grid.Column="1" Text="{Binding Price}"/>
                                 <Label Grid.Column="2" Text="{Binding Quantity}"/>
                                 <Label Grid.Column="3" Text="{Binding Description}"/>
+                                <Label Grid.Column="4" Text="{Binding BOGO}"/>
+                                <Label Grid.Column="5" Text="{Binding MarkdownPercent}"/>
+
                             </Grid>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Grid Grid.Row="2" Grid.Column="1">
+
+            <!-- price bar -->
+            <Grid Grid.Row="3" Grid.Column="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
@@ -147,13 +203,12 @@
                 <!-- third column, price after tax-->
                 <Label Grid.Column="2" Grid.Row="0" Text="Total Price"/>
                 <Label Grid.Column="2" Grid.Row="1" Text="{Binding PriceAfterTax}"/>
-
             </Grid>
 
 
         </Grid>
         <Button
-            Text="Cancel"
+            Text="Go Back"
             Clicked="CancelClicked"
             />
     </VerticalStackLayout>

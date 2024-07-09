@@ -131,6 +131,20 @@
                     Command="{Binding Path=RemoveFromCartCommand}"
                     CommandParameter="{Binding}"
                     />
+                <Button
+                    Grid.Column="1"
+                    Text="Wishlist"
+                    Clicked="CartSelected"
+                    Command="{Binding Path=AccessWishlistCommand}"
+                    CommandParameter="{Binding}"
+                    />
+                <Button
+                    Grid.Column="0"
+                    Text="Cart"
+                    Clicked="CartSelected"
+                    Command="{Binding Path=AccessCartCommand}"
+                    CommandParameter="{Binding}"
+                    />
             </Grid>
 
             <!-- labels -->

@@ -91,6 +91,36 @@ namespace eCommerce.MAUI.ViewModels
             }
         }
 
+        public bool? BOGO
+        {
+            get
+            {
+                return Product.BOGO ?? false;
+            }
+            set
+            {
+                if (Product != null)
+                {
+                    Product.BOGO = value ?? false;
+                }
+            }
+        }
+
+        public decimal MarkdownPercent
+        {
+            get
+            {
+                return Product?.MarkdownPercent ?? 0.0M;
+            }
+            set
+            {
+                if (Product != null)
+                {
+                    Product.MarkdownPercent = value;
+                }
+            }
+        }
+
         public ICommand EditCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
 

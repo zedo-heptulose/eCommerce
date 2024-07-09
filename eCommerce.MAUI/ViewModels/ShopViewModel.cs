@@ -79,7 +79,10 @@ namespace eCommerce.MAUI.ViewModels
         {
             get
             {
-                return ShoppingCartService.Current?.Cart?.Contents.Select(p => p.Price * p.Quantity).Sum() ?? 0;
+                return ShoppingCartService.Current?.Cart?.Contents.Select
+                    (p => (1 - p.MarkdownPercent / 100.0M) * p.Price * 
+                    (p.BOGO ?? false ? Math.Ceiling((Decimal)p?.Quantity / 2.0M) : p.Quantity )) 
+                    .Sum() ?? 0;
             }
         }
 
@@ -99,7 +102,7 @@ namespace eCommerce.MAUI.ViewModels
             {
                 return PriceBeforeTax + Tax;
             }
-        }
+        } 
 
         public ICommand AddToCartCommand { get; set; }
 

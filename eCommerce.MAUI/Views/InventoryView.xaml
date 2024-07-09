@@ -22,7 +22,26 @@
                 Clicked="SearchClicked"
                 />
         </Grid>
-
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column ="0" Text="Id"/>
+            <Label Grid.Column="1" Text =" Name"/>
+            <Label Grid.Column="2" Text="Price"/>
+            <Label Grid.Column="3" Text="Quantity"/>
+            <Label Grid.Column="4" Text="Description"/>
+            <Label Grid.Column="5" Text="BOGO"/>
+            <Label Grid.Column="6" Text="Markdown (%)"/>
+        </Grid>
         <ListView
             ItemsSource="{Binding Products}"
             SelectedItem="{Binding SelectedProduct}"
@@ -40,20 +59,22 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
+                                <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column ="0" Text="{Binding Id}"/>
                             <Label Grid.Column="1" Text ="{Binding Name}"/>
                             <Label Grid.Column="2" Text="{Binding Price}"/>
                             <Label Grid.Column="3" Text="{Binding Quantity}"/>
                             <Label Grid.Column="4" Text="{Binding Description}"/>
-                            <Label Grid.Column="7" Text="{Binding Id}"/>
-                            <Button Grid.Column="5" 
+                            <Label Grid.Column="5" Text="{Binding BOGO}"/>
+                            <Label Grid.Column="6" Text="{Binding MarkdownPercent}"/>
+                            <Button Grid.Column="7" 
                                     Text="Edit" 
                                     Command="{Binding Path=EditCommand}"
                                     CommandParameter="{Binding}"
                                     
                                     />
-                            <Button Grid.Column="6"
+                            <Button Grid.Column="8"
                                     Text="Delete"
                                     Command="{Binding Path=DeleteCommand}"
                                     CommandParameter="{Binding}"

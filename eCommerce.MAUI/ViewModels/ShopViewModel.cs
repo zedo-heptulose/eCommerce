@@ -66,7 +66,7 @@ namespace eCommerce.MAUI.ViewModels
         {
             get
             {
-                return ShoppingCartService.Current?.Cart?.Contents?.Select(p => new ProductViewModel(p)).ToList()
+                return ShoppingCartServiceProxy.Current?.Cart?.Contents?.Select(p => new ProductViewModel(p)).ToList()
                     ?? new List<ProductViewModel>();
             }
         }
@@ -79,9 +79,9 @@ namespace eCommerce.MAUI.ViewModels
         {
             get
             {
-                return ShoppingCartService.Current?.Cart?.Contents.Select
+                return ShoppingCartServiceProxy.Current?.Cart?.Contents.Select
                     (p => (1 - p.MarkdownPercent / 100.0M) * p.Price * 
-                    (p.BOGO ?? false ? Math.Ceiling((Decimal)p?.Quantity / 2.0M) : p.Quantity )) 
+                    (p.BOGO ?? false ? Math.Ceiling((Decimal)p.Quantity / 2.0M) : p.Quantity )) 
                     .Sum() ?? 0;
             }
         }
@@ -114,7 +114,7 @@ namespace eCommerce.MAUI.ViewModels
             Product? temp = new Product(SelectedInventoryItem.Product); //make copy here, so we can change its quantity
             temp.Quantity = QuantityToAdd;
             ///NEW
-            ShoppingCartService.Current.AddToCart(temp);
+            ShoppingCartServiceProxy.Current.AddToCart(temp);
         }
 
         public ICommand RemoveFromCartCommand { get; set; }
@@ -127,9 +127,23 @@ namespace eCommerce.MAUI.ViewModels
             Product? temp = new Product(SelectedCartItem.Product);
             temp.Quantity += InventoryServiceProxy.Current?.Products?.FirstOrDefault(c => c?.Id == temp?.Id).Quantity ?? 0;
 
-            ShoppingCartService.Current.RemoveFromCart(SelectedCartItem.Product);
+            ShoppingCartServiceProxy.Current.RemoveFromCart(SelectedCartItem.Product);
             InventoryServiceProxy.Current.AddOrUpdate(temp);
 
+        }
+
+        public ICommand AccessCartCommand {  get; set; }
+
+        public void ExecuteAccessCart(ShopViewModel p)
+        {
+            ShoppingCartServiceProxy.Current.CartIndex = 0;
+        }
+       
+        public ICommand AccessWishlistCommand { get; set; }
+
+        public void ExecuteAccessWishList(ShopViewModel p)
+        {
+            ShoppingCartServiceProxy.Current.CartIndex = 1;
         }
 
         public void SetupCommands()
@@ -138,6 +152,10 @@ namespace eCommerce.MAUI.ViewModels
                 (p) => ExecuteAddToCart(p as ShopViewModel));
             RemoveFromCartCommand = new Command(
                 (p) => ExecuteRemoveFromCart(p as ShopViewModel));
+            AccessCartCommand = new Command (
+                (p) => ExecuteAccessCart(p as ShopViewModel));
+            AccessWishlistCommand = new Command(
+                (p) => ExecuteAccessWishList(p as ShopViewModel));
         }
 
         public ShopViewModel()

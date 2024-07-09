@@ -39,4 +39,10 @@ public partial class ShopView : ContentPage
         (BindingContext as ShopViewModel).RefreshCart();
         (BindingContext as ShopViewModel).RefreshPrices();
     }
+
+    private void CartSelected(object sender, EventArgs e)
+    {
+        (BindingContext as ShopViewModel).RefreshCart();
+        (BindingContext as ShopViewModel).RefreshPrices();
+    }
 }

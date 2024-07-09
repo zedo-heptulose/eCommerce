@@ -8,34 +8,40 @@ using System.Threading.Tasks;
 
 namespace eCommerce.Library.Services
 {
-    public class ShoppingCartService
+    public class ShoppingCartServiceProxy
     {
-        private static ShoppingCartService? instance;
+        private static ShoppingCartServiceProxy? instance;
         private static object instanceLock = new object();
 
-        public ReadOnlyCollection<ShoppingCart> carts;
+        public List<ShoppingCart> carts;
 
-        public ShoppingCart Cart
+        public int CartIndex { get; set;} = 0;
+
+        public ShoppingCart Cart //needs to create the thing if it doesn't exist
         {
             get
             {
                 if (carts == null || !carts.Any())
                 {
-                    return new ShoppingCart();
-                }       
-                return carts?.FirstOrDefault() ?? new ShoppingCart();
-            }
+                    carts = new List<ShoppingCart>();
+                }
+                while (carts.Count <= CartIndex) 
+                { 
+                    carts.Add(new ShoppingCart());  
+                }
+                return carts?[CartIndex]; //now always has a cart for a given index
+            } 
         }
 
 
-        private ShoppingCartService() 
+        private ShoppingCartServiceProxy() 
         { 
             List<ShoppingCart> cart_list = new List<ShoppingCart>();
             cart_list.Add(new ShoppingCart {Id = 1, Contents = new List<Product>() });
-            carts = new ReadOnlyCollection<ShoppingCart>(cart_list);
+            carts = new List<ShoppingCart>(cart_list);
         }
 
-        public static ShoppingCartService Current
+        public static ShoppingCartServiceProxy Current
         {
             get
             {
@@ -43,7 +49,7 @@ namespace eCommerce.Library.Services
                 {
                     if (instance == null)
                     {
-                        instance = new ShoppingCartService();
+                        instance = new ShoppingCartServiceProxy();
                     }
                 }
                 return instance;

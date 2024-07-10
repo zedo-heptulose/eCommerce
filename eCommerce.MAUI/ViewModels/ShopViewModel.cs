@@ -146,6 +146,13 @@ namespace eCommerce.MAUI.ViewModels
             ShoppingCartServiceProxy.Current.CartIndex = 1;
         }
 
+        public ICommand CheckOutCommand { get; set; }
+
+        public void ExecuteCheckOut(ShopViewModel p)
+        {
+            ShoppingCartServiceProxy.Current.EmptyCart();
+        }
+
         public void SetupCommands()
         {
             AddToCartCommand = new Command(
@@ -156,6 +163,8 @@ namespace eCommerce.MAUI.ViewModels
                 (p) => ExecuteAccessCart(p as ShopViewModel));
             AccessWishlistCommand = new Command(
                 (p) => ExecuteAccessWishList(p as ShopViewModel));
+            CheckOutCommand = new Command(
+                (p) => ExecuteCheckOut(p as ShopViewModel));
         }
 
         public ShopViewModel()

@@ -128,5 +128,10 @@ namespace eCommerce.Library.Services
 
         }
 
+        public void EmptyCart()
+        {
+            carts[CartIndex] = new ShoppingCart();
+        }
+
     }
 }

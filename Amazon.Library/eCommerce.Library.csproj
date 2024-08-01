@@ -6,4 +6,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="eCommerce.API">
+      <HintPath>..\eCommerce.API\eCommerce.API\bin\Debug\net8.0\eCommerce.API.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

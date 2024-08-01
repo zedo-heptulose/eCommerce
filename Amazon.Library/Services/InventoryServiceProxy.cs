@@ -5,6 +5,11 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using eCommerce.Library.Utilities;
+using System.ComponentModel;
+using eCommerce.Library.DTOs;
+
 
 namespace eCommerce.Library.Services
 {
@@ -24,6 +29,22 @@ namespace eCommerce.Library.Services
             }
         }
 
+        public async Task<IEnumerable<Product>> Get()
+        {
+            var result = await new WebRequestHandler().Get("/Inventory");
+            try
+            {
+                var deserializedResult = JsonConvert.DeserializeObject<List<Product>>(result);
+
+                products = deserializedResult.ToList() ?? new List<Product>();
+                return deserializedResult;
+            }
+            catch (Exception ex)
+            {
+                return new List<Product>();
+            }
+        }
+
         private int? NextId
         {
             get
@@ -39,57 +60,54 @@ namespace eCommerce.Library.Services
 
         //create, update
         //sucessfully reached
-        public Product AddOrUpdate(Product? p)
+        public async Task<Product> AddOrUpdate(Product? p)
         {
-            if(products == null) { return new Product(p); }
-            if(p == null) { return new Product(); }
-
-            bool isAdd = false;
-
-            if(p.Id == 0)
-            {
-                isAdd = true;
-                p.Id = NextId;
-            }
-
-            if(isAdd == true)
-            {
-                products.Add(p);
-            }
-            else
-            {
-                //TODO: Implement replacing the item at this point in the list.
-                Delete(products?.FirstOrDefault(c => c.Id == p.Id));
-                products?.Add(p);
-            }
-
-            return p;
+            var result = await new WebRequestHandler().Post("/Inventory",p);
+            return JsonConvert.DeserializeObject<Product>(result);
         }
 
-        public Product? Delete(Product? p)
+        public async Task<Product?> Delete(Product? p)
         {
-            if (p == null) { return null; }
-            Product to_remove;
+            //if (p == null) { return null; }
+            //Product? to_remove = products.Single(c => c.Id == p.Id);
+
+            //if (to_remove == null)
+            //{
+            //    return null;
+            //}
+            //products.Remove(to_remove);
+            //return to_remove;
+            int id = p.Id ?? 0;
+            var response = await new WebRequestHandler().Delete($"/{id}");
+            var itemToDelete = JsonConvert.DeserializeObject<Product>(response);
+            return itemToDelete;
+        }
+
+        public async Task<IEnumerable<Product>> Search(Query? query)
+        {
+            if (query == null)
+            {
+                return await Get();
+            }
+            var result = await new WebRequestHandler().Post("/Inventory/Search",query);
             try
             {
-                to_remove = products.Single(c => c.Id == p.Id);
+                var deserializedResult = JsonConvert.DeserializeObject<List<Product>>(result) ?? new List<Product>();
+                products = deserializedResult.ToList() ?? new List<Product>();
+                return deserializedResult;
             }
-            catch (InvalidOperationException e)
+            catch
             {
-                return null;
+                return new List<Product>();
             }
-            
-            if (to_remove != null)
-            {
-                products.Remove(to_remove);
-            }
-            return to_remove;
         }
 
         private InventoryServiceProxy()
         {
             products = new List<Product>();
-           
+            //TODO: make a web call
+            var response = new WebRequestHandler().Get("/Inventory").Result;
+            products = JsonConvert.DeserializeObject<List<Product>>(response);
         }
 
         public static InventoryServiceProxy Current

@@ -11,8 +11,6 @@ namespace eCommerce.MAUI.ViewModels
 {
     public class ProductViewModel
     {
-        
-
         public Product Product;
 
         public string? Name
@@ -130,10 +128,10 @@ namespace eCommerce.MAUI.ViewModels
             Shell.Current.GoToAsync($"//Product?ProductId={p.Id}");
         }
 
-        private void ExecuteDelete(ProductViewModel? p)
+        private async void ExecuteDelete(ProductViewModel? p)
         {
             if (p== null) { return; }
-            InventoryServiceProxy.Current.Delete(p.Product);
+            await InventoryServiceProxy.Current.Delete(p.Product);
             //need to refresh, somehow.
             //use the InventoryView codebehind.
         }
@@ -147,9 +145,9 @@ namespace eCommerce.MAUI.ViewModels
         }
 
 
-        public void AddToInventory()
+        public async void AddToInventory()
         {
-            InventoryServiceProxy.Current.AddOrUpdate(Product);
+            await InventoryServiceProxy.Current.AddOrUpdate(Product);
         }
         //so, you would do this to prevent circular dependencies.
         //still getting a contact from service proxy in InventoryViewModel,

@@ -32,8 +32,10 @@ public partial class InventoryView : ContentPage
 		(BindingContext as InventoryViewModel).RefreshProducts();
 	}
 
-	private void InlineDelete_Clicked(object sender, EventArgs e)
+	private async void InlineDelete_Clicked(object sender, EventArgs e)
 	{
+		Thread.Sleep(50);
 		(BindingContext as InventoryViewModel).RefreshProducts();
 	}
+
 }

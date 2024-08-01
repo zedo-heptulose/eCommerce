@@ -28,4 +28,8 @@
         Title="GlobalVars"
         ContentTemplate="{DataTemplate views:GlobalManagerView}"
         Route="GlobalVars"/>
+    <ShellContent
+        Title="MassImport"
+        ContentTemplate="{DataTemplate views:MassImportView}"
+        Route="MassImport"/>
 </Shell>

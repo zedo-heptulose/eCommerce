@@ -38,4 +38,9 @@ public partial class InventoryView : ContentPage
 		(BindingContext as InventoryViewModel).RefreshProducts();
 	}
 
+	private async void ImportClicked(object sender, EventArgs e)
+	{
+		Shell.Current.GoToAsync("//MassImport");
+	}
+
 }

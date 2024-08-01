@@ -88,6 +88,9 @@
         <Button Text="Add" 
                 Clicked="AddClicked"
                 />
+        <Button Text="Import Wizard" 
+                Clicked="ImportClicked"
+                />
         <Button
             Text="Cancel"
             Clicked="CancelClicked"

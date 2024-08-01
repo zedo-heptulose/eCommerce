@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+﻿using eCommerce.Library.Models;
 
-
-namespace eCommerce.Library.Models
+namespace eCommerce.API.DTO
+   
 {
-    public class Product
+    public class ProductDTO
     {
         public string? Name { get; set; }
         public string? Description { get; set; }
@@ -21,16 +15,12 @@ namespace eCommerce.Library.Models
 
         public decimal? MarkdownPercent { get; set; }
 
-        public Product()
+
+        public ProductDTO()
         {
-            Name = string.Empty;
-            Description = string.Empty;
-            Price = 0;
-            Id = 0;
-            BOGO = false;
-            MarkdownPercent = 0;
+
         }
-        public Product(Product p)
+        public ProductDTO(Product p)
         {
             Name = p.Name;
             Description = p.Description;

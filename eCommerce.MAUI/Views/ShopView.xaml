@@ -4,7 +4,7 @@
              x:Class="eCommerce.MAUI.Views.ShopView"
              Title="ShopView"
              NavigatedTo="ContentPage_NavigatedTo">
-    
+
     <VerticalStackLayout>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -22,7 +22,7 @@
             The list off all the products, then another list with the products
             only in the shopping cart.
             For now, let's see that this works.>-->
-            
+
             <!--INVENTORY LISTVIEW -->
 
             <!--Search Bar -->
@@ -86,7 +86,7 @@
                             </Grid>
                         </ViewCell>
                     </DataTemplate>
-                </ListView.ItemTemplate>                    
+                </ListView.ItemTemplate>
             </ListView>
 
 
@@ -111,11 +111,11 @@
                     Command="{Binding Path=AddToCartCommand}"
                     CommandParameter="{Binding}"
                     Clicked="AddToCartClicked"
-                    />   
+                    />
             </Grid>
-            
-            
-            
+
+
+
             <!-- SHOPPING CART -->
             <!-- remove item option -->
             <Grid Grid.Row="0" Grid.Column="1">

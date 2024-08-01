@@ -24,8 +24,9 @@ namespace eCommerce.MAUI.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public void RefreshInventory()
+        public async void RefreshInventory()
         {
+            await InventoryServiceProxy.Current.Get();
             NotifyPropertyChanged("InventoryItems");
         }
 
@@ -43,8 +44,8 @@ namespace eCommerce.MAUI.ViewModels
 
         public string InventorySearchString {  get; set; }
 
-        public List<ProductViewModel> InventoryItems
-        {
+        public List<ProductViewModel> InventoryItems {
+        
             get
             {
                 if (InventorySearchString == null)
@@ -106,7 +107,7 @@ namespace eCommerce.MAUI.ViewModels
 
         public ICommand AddToCartCommand { get; set; }
 
-        public void ExecuteAddToCart(ShopViewModel p)
+        public async void ExecuteAddToCart(ShopViewModel p)
         {
             if (SelectedInventoryItem == null) { return;  }
             if (SelectedInventoryItem.Product == null) { return; }
@@ -115,11 +116,17 @@ namespace eCommerce.MAUI.ViewModels
             temp.Quantity = QuantityToAdd;
             ///NEW
             ShoppingCartServiceProxy.Current.AddToCart(temp);
+
+            temp.Quantity = SelectedInventoryItem.Product.Quantity;
+            await InventoryServiceProxy.Current.AddOrUpdate(temp);
+            RefreshCart();
+            RefreshInventory();
+            RefreshPrices();
         }
 
         public ICommand RemoveFromCartCommand { get; set; }
 
-        public void ExecuteRemoveFromCart(ShopViewModel p)
+        public async void ExecuteRemoveFromCart(ShopViewModel p)
         {
             if (SelectedCartItem == null) { return;  }
             if (SelectedCartItem.Product == null) { return; }
@@ -128,7 +135,10 @@ namespace eCommerce.MAUI.ViewModels
             temp.Quantity += InventoryServiceProxy.Current?.Products?.FirstOrDefault(c => c?.Id == temp?.Id).Quantity ?? 0;
 
             ShoppingCartServiceProxy.Current.RemoveFromCart(SelectedCartItem.Product);
-            InventoryServiceProxy.Current.AddOrUpdate(temp);
+            await InventoryServiceProxy.Current.AddOrUpdate(temp);
+            RefreshCart();
+            RefreshInventory();
+            RefreshPrices();
 
         }
 

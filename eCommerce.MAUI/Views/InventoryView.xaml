@@ -85,7 +85,9 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Text="Add" Clicked="AddClicked"/>
+        <Button Text="Add" 
+                Clicked="AddClicked"
+                />
         <Button
             Text="Cancel"
             Clicked="CancelClicked"

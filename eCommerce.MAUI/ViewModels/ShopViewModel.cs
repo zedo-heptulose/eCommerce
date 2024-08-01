@@ -175,7 +175,6 @@ namespace eCommerce.MAUI.ViewModels
                 (p) => ExecuteAccessWishList(p as ShopViewModel));
             CheckOutCommand = new Command(
                 (p) => ExecuteCheckOut(p as ShopViewModel));
-
         }
 
         public ShopViewModel()

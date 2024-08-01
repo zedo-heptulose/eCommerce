@@ -132,7 +132,5 @@ namespace eCommerce.Library.Services
         {
             carts[CartIndex] = new ShoppingCart();
         }
-
-
     }
 }

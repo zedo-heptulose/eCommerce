@@ -63,7 +63,9 @@ namespace eCommerce.Library.Services
         public async Task<Product> AddOrUpdate(Product? p)
         {
             var result = await new WebRequestHandler().Post("/Inventory",p);
-            return JsonConvert.DeserializeObject<Product>(result);
+            try { return JsonConvert.DeserializeObject<Product>(result); }
+            catch (Exception ex) { return new Product(); }
+            
         }
 
         public async Task<Product?> Delete(Product? p)
